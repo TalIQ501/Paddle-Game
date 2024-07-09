@@ -1,0 +1,17 @@
+Import Modules for Pygame, Time Random
+Set Up Display
+
+Create Player
+Create Ball
+
+While Run
+
+Set Framerate
+Increase Time Between Stages
+For Quitting on Cross
+Add New Stage
+Ball w/Paddle Collision
+Ball w/Block Collision
+Ball MOvement Mechanics
+Lose Game When Ball Reaches Bottom
+Draw
