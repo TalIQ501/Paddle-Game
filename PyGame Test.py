@@ -31,12 +31,26 @@ class Paddle(pygame.Rect):
 class Ball(pygame.Rect):
     def __init_subclass__(cls) -> None:
         return super().__init_subclass__()
+    
+    def padCollision(self, paddle):
+        padCollision = pygame.Rect.colliderect(self, paddle)
+        if self.x + (BALL_RADIUS*2) > WIDTH or self.x < 0:
+            ballDirX *= -1
+        if self.y < 0:
+            ballDirY *= -1
+        if padCollision:
+            ballDirY *= -1
 
 class Block(pygame.Rect):
     def __init_subclass__(cls) -> None:
         return super().__init_subclass__()
     
-    def ballColl(ball, block):
+    def ballColl(self, ball, blockList):
+        blockCollision = pygame.Rect.colliderect(self, ball, blockList)
+        if blockCollision:
+            score += 1
+            ballDirY *= -1
+            blockList.remove(self)
         return 
 
 def draw(player, ball, elapsedTime, stage, score):
@@ -92,13 +106,13 @@ def main():
         timeMultiplier = timeIncrement * stage
         timeIncrement = elapsedTime - timeMultiplier
 
-    #For quitting game on pressing cross button
+        #For quitting game on pressing cross button
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
                 break
 
-    draw(player=paddle, ball=ball, elapsedTime=elapsedTime, stage=stage, score=score)
+        draw(player=paddle, ball=ball, elapsedTime=elapsedTime, stage=stage, score=score)
 
 if __name__ == "__main__":
     main()
